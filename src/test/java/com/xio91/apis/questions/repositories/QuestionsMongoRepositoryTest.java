@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.xio91.apis.questions.repositories.entities.Question;
+import com.xio91.apis.questions.repositories.entities.QuestionEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,7 +30,7 @@ class QuestionsMongoRepositoryTest {
 	@Test
 	void test() {
 
-		List<Question> questions = questionsMongoRepository.findAll();
+		List<QuestionEntity> questions = questionsMongoRepository.findAll();
 		
 		System.out.println(questions);
 	}

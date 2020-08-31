@@ -1,4 +1,4 @@
-package com.xio91.apis.questions.repositories.entities;
+package com.xio91.apis.questions.dtos;
 
 import lombok.Data;
 
@@ -7,4 +7,5 @@ public class Answer {
 
 	private Integer yes;
 	private Integer no;
+	
 }
