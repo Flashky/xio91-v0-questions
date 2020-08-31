@@ -32,6 +32,7 @@ public class QuestionsRestController {
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void createQuestion(@RequestBody Question question) {
 		
+		// TODO add mandatory parameters validation
 		questionsService.createQuestion(question);
 		
 	}

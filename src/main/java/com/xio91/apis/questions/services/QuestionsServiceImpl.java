@@ -29,6 +29,7 @@ public class QuestionsServiceImpl implements QuestionsService {
 	@Override
 	public void createQuestion(Question question) {
 
+		// TODO add business logic
 		QuestionEntity questionEntity = mapper.map(question);
 		questionsRepository.insert(questionEntity);
 	}
