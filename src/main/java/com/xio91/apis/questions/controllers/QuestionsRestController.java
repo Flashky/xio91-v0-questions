@@ -1,10 +1,12 @@
 package com.xio91.apis.questions.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,18 @@ public class QuestionsRestController {
 		
 		return questionsService.listQuestions();
 		
+	}
+	
+	@GetMapping("/{questionId}")
+	public ResponseEntity<Question> getQuestion(@PathVariable String questionId) {
+		
+		// TODO add mandatory parameters validation
+		Optional<Question> question = questionsService.getQuestion(questionId);
+
+		if(question.isPresent()) {
+			return ResponseEntity.ok().body(question.get());
+		}
+		return ResponseEntity.noContent().build();
 	}
 	
 	@PostMapping

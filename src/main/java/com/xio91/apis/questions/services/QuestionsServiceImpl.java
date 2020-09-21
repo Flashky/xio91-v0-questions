@@ -1,6 +1,7 @@
 package com.xio91.apis.questions.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,21 @@ public class QuestionsServiceImpl implements QuestionsService {
 		return mapper.map(questions);
 	}
 
+	@Override
+	public Optional<Question> getQuestion(String questionId) {
+		
+		Question question = null;
+		
+		Optional<QuestionEntity> questionEntity = questionsRepository.findById(questionId);
+		
+		if(questionEntity.isPresent()) {
+			question = mapper.map(questionEntity.get());
+		}
+		
+		return Optional.ofNullable(question);
+		
+	}
+	
 	@Override
 	public Question createQuestion(Question question) {
 
