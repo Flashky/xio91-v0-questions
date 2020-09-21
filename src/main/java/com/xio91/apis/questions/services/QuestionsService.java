@@ -7,5 +7,11 @@ import com.xio91.apis.questions.dtos.Question;
 public interface QuestionsService {
 
 	List<Question> listQuestions();
-	void createQuestion(Question question);
+	
+	/**
+	 * Creates a question.
+	 * @param question the question to create.
+	 * @return a representation of the created question.
+	 */
+	Question createQuestion(Question question);
 }

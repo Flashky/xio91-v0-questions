@@ -3,13 +3,14 @@ package com.xio91.apis.questions.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.xio91.apis.questions.dtos.Question;
 import com.xio91.apis.questions.services.QuestionsService;
@@ -29,11 +30,16 @@ public class QuestionsRestController {
 	}
 	
 	@PostMapping
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void createQuestion(@RequestBody Question question) {
+	public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
 		
 		// TODO add mandatory parameters validation
-		questionsService.createQuestion(question);
+		Question createdQuestion = questionsService.createQuestion(question);
+		
+		// Prepare header Location
+		UriComponentsBuilder uriBuilder = ServletUriComponentsBuilder.fromCurrentRequest();
+		uriBuilder.pathSegment(createdQuestion.getId());
+		
+		return ResponseEntity.created(uriBuilder.build().toUri()).body(createdQuestion);
 		
 	}
 }
