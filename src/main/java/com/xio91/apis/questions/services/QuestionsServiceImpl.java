@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.xio91.apis.questions.dtos.Question;
@@ -21,10 +24,13 @@ public class QuestionsServiceImpl implements QuestionsService {
 	private QuestionMapper mapper;
 	
 	@Override
-	public List<Question> listQuestions() {
+	public Page<Question> listQuestions(int page, int size) {
 		
-		List<QuestionEntity> questions = questionsRepository.findAll();
-		return mapper.map(questions);
+		Pageable pageable = PageRequest.of(page, size);
+		Page<QuestionEntity> questionsPage = questionsRepository.findAll(pageable);
+		
+		//List<QuestionEntity> questions = questionsRepository.findAll();
+		return mapper.map(questionsPage);
 	}
 
 	@Override

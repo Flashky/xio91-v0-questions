@@ -1,13 +1,14 @@
 package com.xio91.apis.questions.services;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
 
 import com.xio91.apis.questions.dtos.Question;
 
 public interface QuestionsService {
 
-	List<Question> listQuestions();
+	Page<Question> listQuestions(int page, int pageSize);
 	
 	Optional<Question> getQuestion(String questionId);
 	

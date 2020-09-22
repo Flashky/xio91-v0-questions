@@ -3,6 +3,7 @@ package com.xio91.apis.questions.services.mappers;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 
 import com.xio91.apis.questions.dtos.Question;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
@@ -11,6 +12,10 @@ import com.xio91.apis.questions.repositories.entities.QuestionEntity;
 public interface QuestionMapper {
 
 	List<Question> map(List<QuestionEntity> questions);
+	
+	default Page<Question> map(Page<QuestionEntity> questions) {
+		return questions.map(entity -> this.map(entity));
+	}
 	
 	Question map(QuestionEntity question);
 	QuestionEntity map(Question question);

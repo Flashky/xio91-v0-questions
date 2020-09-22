@@ -2,13 +2,17 @@ package com.xio91.apis.questions.dtos;
 
 import java.util.Date;
 
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
 @Data
-public class Question {
+@Relation(collectionRelation = "questions")
+public class Question extends RepresentationModel<Question> {
 
 	private String id;
 	
