@@ -22,7 +22,7 @@ public class QuestionEntity {
 
 	private String text;
 	
-	private String author;
+	private AuthorEntity author;
 	private AnswerEntity answer;
 	
 	@CreatedDate

@@ -19,7 +19,7 @@ public class Question extends RepresentationModel<Question> {
 	private String id;
 	
 	private String text;
-	private String author;
+	private Author author;
 	private Answer answer;
 	
 	@JsonIgnore
