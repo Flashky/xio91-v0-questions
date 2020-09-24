@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.SortDefault;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,8 @@ public class QuestionsRestController {
 	private QuestionsService questionsService;
     
 	@GetMapping
-	public ResponseEntity<PagedModel<Question>> listQuestions(Pageable pageable) {
+	public ResponseEntity<PagedModel<Question>> listQuestions(@SortDefault(sort = "createdDate") 
+																Pageable pageable) {
 		
 		PagedModel<Question> questions = questionsService.listQuestions(pageable);
 
