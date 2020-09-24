@@ -3,10 +3,7 @@ package com.xio91.apis.questions.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,35 +15,38 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.xio91.apis.questions.dtos.Question;
+import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.services.QuestionsService;
 
-//@RestController
-//@RequestMapping("/xio91/v0/questions")
+@RestController
+@RequestMapping("/xio91/v0/questions")
 public class QuestionsRestController {
 	
 	@Autowired
 	private QuestionsService questionsService;
-	
-    @Autowired
-    private PagedResourcesAssembler<Question> pagedResourcesAssembler;
     
 	@GetMapping
-	public PagedModel<EntityModel<Question>> listQuestions(Pageable pageable) {
+	public ResponseEntity<PagedModel<Question>> listQuestions(Pageable pageable) {
 		
-		Page<Question> questions = questionsService.listQuestions(pageable.getPageNumber(), pageable.getPageSize());
+		PagedModel<Question> questions = questionsService.listQuestions(pageable);
+
+		if(!questions.getContent().isEmpty()) {
+			return ResponseEntity.ok().body(questions); 
+		} 
 		
-		return pagedResourcesAssembler.toModel(questions);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/{questionId}")
 	public ResponseEntity<Question> getQuestion(@PathVariable String questionId) {
 		
+		// TODO add mandatory parameters validation
 		Optional<Question> question = questionsService.getQuestion(questionId);
 
 		if(question.isPresent()) {
 			return ResponseEntity.ok().body(question.get());
 		}
+		
 		return ResponseEntity.noContent().build();
 	}
 	

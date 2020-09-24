@@ -2,13 +2,14 @@ package com.xio91.apis.questions.services;
 
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.PagedModel;
 
-import com.xio91.apis.questions.dtos.Question;
+import com.xio91.apis.questions.controllers.model.Question;
 
 public interface QuestionsService {
 
-	Page<Question> listQuestions(int page, int pageSize);
+	PagedModel<Question> listQuestions(Pageable pageable);
 	
 	Optional<Question> getQuestion(String questionId);
 	

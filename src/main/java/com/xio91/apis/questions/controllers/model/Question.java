@@ -1,4 +1,4 @@
-package com.xio91.apis.questions.dtos;
+package com.xio91.apis.questions.controllers.model;
 
 import java.util.Date;
 
@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Relation(collectionRelation = "questions")
 public class Question extends RepresentationModel<Question> {
 

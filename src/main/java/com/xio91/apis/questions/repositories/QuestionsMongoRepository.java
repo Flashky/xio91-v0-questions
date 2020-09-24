@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
 
-@RepositoryRestResource(collectionResourceRel = "questions", path = "questions")
+//@RepositoryRestResource(collectionResourceRel = "questions", path = "questions")
 public interface QuestionsMongoRepository extends MongoRepository<QuestionEntity, String> {
 	
 	@Override

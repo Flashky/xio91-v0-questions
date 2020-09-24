@@ -1,4 +1,4 @@
-package com.xio91.apis.questions.dtos;
+package com.xio91.apis.questions.controllers.model;
 
 import lombok.Data;
 
