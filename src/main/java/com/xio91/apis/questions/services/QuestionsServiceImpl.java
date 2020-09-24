@@ -9,10 +9,10 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
-import com.xio91.apis.questions.controllers.QuestionModelAssembler;
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.repositories.QuestionsMongoRepository;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
+import com.xio91.apis.questions.services.mappers.QuestionModelAssembler;
 
 @Service
 public class QuestionsServiceImpl implements QuestionsService {

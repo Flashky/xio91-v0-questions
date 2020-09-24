@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
 
-@Mapper(componentModel = "spring")
+//@Mapper(componentModel = "spring")
 public interface QuestionMapper {
 
 	List<Question> map(List<QuestionEntity> questions);
