@@ -44,7 +44,6 @@ public class QuestionsRestController {
 	@GetMapping("/{questionId}")
 	public ResponseEntity<Question> getQuestion(@PathVariable String questionId) {
 		
-		// TODO add mandatory parameters validation
 		Optional<Question> question = questionsService.getQuestion(questionId);
 
 		if(question.isPresent()) {
