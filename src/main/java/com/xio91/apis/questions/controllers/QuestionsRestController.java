@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
+import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.RepresentationModel;
@@ -76,7 +77,7 @@ public class QuestionsRestController {
 		
 		URI location = null;
 		
-		Optional<Link> selfLink = representationModel.getLink("self");
+		Optional<Link> selfLink = representationModel.getLink(IanaLinkRelations.SELF);
 		
 		if(selfLink.isPresent()) {
 			location = selfLink.get().toUri();
