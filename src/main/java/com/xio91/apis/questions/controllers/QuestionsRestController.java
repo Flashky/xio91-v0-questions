@@ -70,8 +70,8 @@ public class QuestionsRestController {
 
 	/**
 	 * Generates a location URI from a representation model link with "self" rel, if present.
-	 * @param question the representation model to obtain the URI from.
-	 * @return The resource location URI. May be <code>null</null> if no self attribute is defined.
+	 * @param representationModel the model to obtain the location URI from.
+	 * @return The model location URI. May be <code>null</null> if no self attribute is defined.
 	 */
 	private URI getLocationUri(RepresentationModel<?> representationModel) {
 		
