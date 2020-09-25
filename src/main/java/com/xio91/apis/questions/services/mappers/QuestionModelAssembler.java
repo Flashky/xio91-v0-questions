@@ -25,13 +25,16 @@ public abstract class QuestionModelAssembler extends RepresentationModelAssemble
 		
 		// Add links
 		
+		// Question self
 		Link self = linkTo(methodOn(QuestionsRestController.class).getQuestion(entity.getId())).withSelfRel();
+		questionModel.add(self);
 		
+		// Author's questions
 		Author author = questionModel.getAuthor();
 		Link authorQuestions = linkTo(methodOn(QuestionsRestController.class).listQuestions(null, author.getName())).withRel("questions");
 		questionModel.getAuthor().add(authorQuestions);
 		
-		questionModel.add(self);
+		
 		
 		return questionModel;
 	}
