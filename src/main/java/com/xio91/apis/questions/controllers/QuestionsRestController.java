@@ -1,11 +1,15 @@
 package com.xio91.apis.questions.controllers;
 
+import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.LinkRelation;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.services.QuestionsService;
@@ -60,11 +62,28 @@ public class QuestionsRestController {
 		Question createdQuestion = questionsService.createQuestion(question);
 		
 		// Prepare header Location
-		UriComponentsBuilder uriBuilder = ServletUriComponentsBuilder.fromCurrentRequest();
-		uriBuilder.pathSegment(createdQuestion.getId());
+		URI location = getLocationUri(createdQuestion);
 		
-		return ResponseEntity.created(uriBuilder.build().toUri()).body(createdQuestion);
+		return ResponseEntity.created(location).body(createdQuestion);
 		
+	}
+
+	/**
+	 * Generates a location URI from a representation model link with "self" rel, if present.
+	 * @param question the representation model to obtain the URI from.
+	 * @return The resource location URI. May be <code>null</null> if no self attribute is defined.
+	 */
+	private URI getLocationUri(RepresentationModel<?> representationModel) {
+		
+		URI location = null;
+		
+		Optional<Link> selfLink = representationModel.getLink("self");
+		
+		if(selfLink.isPresent()) {
+			location = selfLink.get().toUri();
+		}
+		
+		return location;
 	}
 }
  
