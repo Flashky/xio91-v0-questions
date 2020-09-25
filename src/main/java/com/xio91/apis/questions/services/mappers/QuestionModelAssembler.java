@@ -13,9 +13,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Mapper(componentModel = "spring")
 public abstract class QuestionModelAssembler extends RepresentationModelAssemblerSupport<QuestionEntity, Question>{
-
-	@Autowired
-	private EntityLinks entityLinks;
 	
 	public QuestionModelAssembler() {
 	    super(QuestionsRestController.class, Question.class);
