@@ -4,17 +4,20 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 
 import com.xio91.apis.questions.controllers.QuestionsRestController;
-import com.xio91.apis.questions.controllers.model.Author;
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
 
 @Mapper(componentModel = "spring")
 public abstract class QuestionModelAssembler extends RepresentationModelAssemblerSupport<QuestionEntity, Question>{
 	
+	@Autowired
+	private AuthorProcessor authorProcessor;
+	 
 	public QuestionModelAssembler() {
 	    super(QuestionsRestController.class, Question.class);
 	  }
@@ -29,12 +32,8 @@ public abstract class QuestionModelAssembler extends RepresentationModelAssemble
 		Link self = linkTo(methodOn(QuestionsRestController.class).getQuestion(entity.getId())).withSelfRel();
 		questionModel.add(self);
 		
-		// Author's questions
-		Author author = questionModel.getAuthor();
-		Link authorQuestions = linkTo(methodOn(QuestionsRestController.class).listQuestions(null, author.getName())).withRel("questions");
-		questionModel.getAuthor().add(authorQuestions);
-		
-		
+		// Author's links
+		authorProcessor.process(questionModel.getAuthor());
 		
 		return questionModel;
 	}
