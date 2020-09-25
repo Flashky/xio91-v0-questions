@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -31,11 +33,18 @@ public class QuestionsServiceImpl implements QuestionsService {
 	@Override
 	public PagedModel<Question> listQuestions(Pageable pageable, String author) {
 		
+		
+		ExampleMatcher caseInsensitiveMatcher = ExampleMatcher.matchingAll()
+																.withIgnoreCase()
+																.withStringMatcher(StringMatcher.EXACT);
+		
 		QuestionEntity entity = new QuestionEntity();
 		entity.setAuthor(new AuthorEntity());
 		entity.getAuthor().setName(author);
 
-		Page<QuestionEntity> questionEntities = questionsRepository.findAll(Example.of(entity), pageable);
+		Example<QuestionEntity> exampleEntity = Example.of(entity, caseInsensitiveMatcher);
+		
+		Page<QuestionEntity> questionEntities = questionsRepository.findAll(exampleEntity, pageable);
 
 		
 		// Convert to DTO model and return
