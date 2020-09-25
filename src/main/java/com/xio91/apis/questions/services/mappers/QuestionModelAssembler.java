@@ -1,15 +1,16 @@
 package com.xio91.apis.questions.services.mappers;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import org.mapstruct.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 
 import com.xio91.apis.questions.controllers.QuestionsRestController;
+import com.xio91.apis.questions.controllers.model.Author;
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Mapper(componentModel = "spring")
 public abstract class QuestionModelAssembler extends RepresentationModelAssemblerSupport<QuestionEntity, Question>{
@@ -25,6 +26,11 @@ public abstract class QuestionModelAssembler extends RepresentationModelAssemble
 		// Add links
 		
 		Link self = linkTo(methodOn(QuestionsRestController.class).getQuestion(entity.getId())).withSelfRel();
+		
+		Author author = questionModel.getAuthor();
+		Link authorQuestions = linkTo(methodOn(QuestionsRestController.class).listQuestions(null, author.getName())).withRel("questions");
+		questionModel.getAuthor().add(authorQuestions);
+		
 		questionModel.add(self);
 		
 		return questionModel;

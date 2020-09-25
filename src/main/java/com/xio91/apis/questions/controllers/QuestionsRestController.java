@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,9 +29,10 @@ public class QuestionsRestController {
     
 	@GetMapping
 	public ResponseEntity<PagedModel<Question>> listQuestions(@SortDefault(sort = "createdDate") 
-																Pageable pageable) {
+																Pageable pageable,
+																@RequestParam(required = false) String author) {
 		
-		PagedModel<Question> questions = questionsService.listQuestions(pageable);
+		PagedModel<Question> questions = questionsService.listQuestions(pageable, author);
 
 		if(!questions.getContent().isEmpty()) {
 			return ResponseEntity.ok().body(questions); 

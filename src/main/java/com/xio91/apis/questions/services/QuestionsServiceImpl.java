@@ -3,6 +3,7 @@ package com.xio91.apis.questions.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.repositories.QuestionsMongoRepository;
+import com.xio91.apis.questions.repositories.entities.AuthorEntity;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
 import com.xio91.apis.questions.services.mappers.QuestionModelAssembler;
 
@@ -27,10 +29,15 @@ public class QuestionsServiceImpl implements QuestionsService {
     private QuestionModelAssembler questionModelAssembler;
 	
 	@Override
-	public PagedModel<Question> listQuestions(Pageable pageable) {
+	public PagedModel<Question> listQuestions(Pageable pageable, String author) {
 		
-		Page<QuestionEntity> questionEntities = questionsRepository.findAll(pageable);
+		QuestionEntity entity = new QuestionEntity();
+		entity.setAuthor(new AuthorEntity());
+		entity.getAuthor().setName(author);
 
+		Page<QuestionEntity> questionEntities = questionsRepository.findAll(Example.of(entity), pageable);
+
+		
 		// Convert to DTO model and return
 		return pagedResourcesAssembler.toModel(questionEntities, questionModelAssembler);
 	}

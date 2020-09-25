@@ -9,7 +9,7 @@ import com.xio91.apis.questions.controllers.model.Question;
 
 public interface QuestionsService {
 
-	PagedModel<Question> listQuestions(Pageable pageable);
+	PagedModel<Question> listQuestions(Pageable pageable, String author);
 	
 	Optional<Question> getQuestion(String questionId);
 	
