@@ -19,4 +19,10 @@ public interface QuestionsService {
 	 * @return a representation of the created question.
 	 */
 	Question createQuestion(Question question);
+	
+	/**
+	 * Updates a question.
+	 * @param question the question to update
+	 */
+	void updateQuestion(Question question);
 }

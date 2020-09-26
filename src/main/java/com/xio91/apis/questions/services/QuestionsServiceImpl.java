@@ -69,4 +69,14 @@ public class QuestionsServiceImpl implements QuestionsService {
 		return questionModelAssembler.toModel(savedQuestion);
 	}
 
+	@Override
+	public void updateQuestion(Question question) {
+
+		// TODO business rule: resource exists
+		
+		QuestionEntity questionEntity = questionModelAssembler.toEntity(question);
+		questionsRepository.save(questionEntity);
+		
+	}
+
 }

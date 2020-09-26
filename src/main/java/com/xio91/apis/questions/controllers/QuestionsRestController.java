@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,6 +69,15 @@ public class QuestionsRestController {
 		
 	}
 
+	@PutMapping
+	public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
+		
+		// TODO add mandatory parameters validation
+		questionsService.updateQuestion(question);
+		
+		return ResponseEntity.ok().build();
+	}
+	
 	/**
 	 * Generates a location URI from a representation model link with "self" rel, if present.
 	 * @param representationModel the model to obtain the location URI from.
