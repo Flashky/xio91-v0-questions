@@ -69,10 +69,13 @@ public class QuestionsRestController {
 		
 	}
 
-	@PutMapping
-	public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
+	@PutMapping("/{questionId}")
+	public ResponseEntity<Question> updateQuestion(@PathVariable String questionId, 
+													@RequestBody Question question) {
 		
 		// TODO add mandatory parameters validation
+		
+		question.setId(questionId);
 		questionsService.updateQuestion(question);
 		
 		return ResponseEntity.ok().build();

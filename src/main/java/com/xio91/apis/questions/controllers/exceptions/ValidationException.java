@@ -1,4 +1,4 @@
-package com.xio91.apis.questions.controllers;
+package com.xio91.apis.questions.controllers.exceptions;
 
 public class ValidationException extends RuntimeException {
 

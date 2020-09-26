@@ -16,6 +16,7 @@ import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.repositories.QuestionsMongoRepository;
 import com.xio91.apis.questions.repositories.entities.AuthorEntity;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
+import com.xio91.apis.questions.services.exceptions.QuestionNotFoundException;
 import com.xio91.apis.questions.services.mappers.QuestionModelAssembler;
 
 @Service
@@ -72,7 +73,9 @@ public class QuestionsServiceImpl implements QuestionsService {
 	@Override
 	public void updateQuestion(Question question) {
 
-		// TODO business rule: resource exists
+		if(!questionsRepository.existsById(question.getId())) {
+			throw new QuestionNotFoundException("Provide an existing question id");
+		}
 		
 		QuestionEntity questionEntity = questionModelAssembler.toEntity(question);
 		questionsRepository.save(questionEntity);

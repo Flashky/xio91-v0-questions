@@ -3,7 +3,7 @@ package com.xio91.apis.questions.repositories;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
-import com.xio91.apis.questions.controllers.ValidationException;
+import com.xio91.apis.questions.controllers.exceptions.ValidationException;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
 
 @RepositoryEventHandler(QuestionEntity.class)
