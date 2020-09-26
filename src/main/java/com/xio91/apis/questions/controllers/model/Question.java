@@ -28,6 +28,7 @@ public class Question extends RepresentationModel<Question> {
 	@NotNull(message = "Author is mandatory")
 	private Author author;
 	
+	@Valid
 	private Answer answer;
 	
 	@JsonFormat(timezone = "GMT+02:00")
