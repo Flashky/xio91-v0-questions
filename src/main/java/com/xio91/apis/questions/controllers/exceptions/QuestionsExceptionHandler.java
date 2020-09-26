@@ -1,4 +1,4 @@
-package com.xio91.apis.questions.controllers;
+package com.xio91.apis.questions.controllers.exceptions;
 
 import java.time.Instant;
 
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.xio91.apis.questions.controllers.exceptions.ValidationException;
 import com.xio91.apis.questions.controllers.model.ErrorResponse;
 import com.xio91.apis.questions.services.exceptions.QuestionNotFoundException;
 

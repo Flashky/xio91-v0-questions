@@ -80,6 +80,7 @@ public class QuestionsServiceImpl implements QuestionsService {
 		}
 		
 		
+		// Prepare entity to save. createdDate field must not be modified.
 		QuestionEntity questionEntity = questionModelAssembler.toEntity(question);
 		questionEntity.setCreatedDate(savedEntity.get().getCreatedDate());
 		
