@@ -6,7 +6,6 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +21,6 @@ public class Question extends RepresentationModel<Question> {
 	private Author author;
 	private Answer answer;
 	
-	@JsonIgnore
 	@JsonFormat(timezone = "GMT+02:00")
 	private Date createdDate;
 	

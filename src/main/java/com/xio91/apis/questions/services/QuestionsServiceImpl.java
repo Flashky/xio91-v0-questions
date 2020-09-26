@@ -73,11 +73,16 @@ public class QuestionsServiceImpl implements QuestionsService {
 	@Override
 	public void updateQuestion(Question question) {
 
-		if(!questionsRepository.existsById(question.getId())) {
+		Optional<QuestionEntity> savedEntity = questionsRepository.findById(question.getId());
+		
+		if(!savedEntity.isPresent()) {
 			throw new QuestionNotFoundException("Provide an existing question id");
 		}
 		
+		
 		QuestionEntity questionEntity = questionModelAssembler.toEntity(question);
+		questionEntity.setCreatedDate(savedEntity.get().getCreatedDate());
+		
 		questionsRepository.save(questionEntity);
 		
 	}
