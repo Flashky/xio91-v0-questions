@@ -3,6 +3,9 @@ package com.xio91.apis.questions.controllers;
 import java.net.URI;
 import java.util.Optional;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
@@ -57,9 +60,8 @@ public class QuestionsRestController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
+	public ResponseEntity<Question> createQuestion(@RequestBody @Valid Question question) {
 		
-		// TODO add mandatory parameters validation
 		Question createdQuestion = questionsService.createQuestion(question);
 		
 		// Prepare header Location
@@ -71,9 +73,7 @@ public class QuestionsRestController {
 
 	@PutMapping("/{questionId}")
 	public ResponseEntity<Question> updateQuestion(@PathVariable String questionId, 
-													@RequestBody Question question) {
-		
-		// TODO add mandatory parameters validation
+												 	@Valid @RequestBody Question question) {
 		
 		question.setId(questionId);
 		questionsService.updateQuestion(question);

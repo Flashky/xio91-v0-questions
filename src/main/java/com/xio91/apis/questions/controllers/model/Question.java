@@ -2,6 +2,10 @@ package com.xio91.apis.questions.controllers.model;
 
 import java.util.Date;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
@@ -17,8 +21,13 @@ public class Question extends RepresentationModel<Question> {
 
 	private String id;
 	
+	@NotBlank(message = "Text is mandatory")
 	private String text;
+	
+	@Valid 
+	@NotNull(message = "Author is mandatory")
 	private Author author;
+	
 	private Answer answer;
 	
 	@JsonFormat(timezone = "GMT+02:00")
