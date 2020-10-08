@@ -26,7 +26,7 @@ Sample for Okta: https://dev-1234.okta.com/oauth2/default
 
 Service uses OAuth 2.0 authentication for consuming POST, PATCH and PUT endpoints.
 
-Check the Authorization Server provider documentation to know how to authenticate on it.
+Check the Authorization Server provider documentation to know how to set it up up and how to authenticate on it.
 
 ### Scopes
 
@@ -34,7 +34,11 @@ The service has the following scopes defined:
 
 - write_questions: allows to perform creation or update on questions.
 
+The scopes must be configured in the selected authorization server.
+
 ## API Reference
+
+Currently, the API supports the following methods:
 
 **Method**|**Endpoint**|**Authentication**|**Scope**
 :-----:|:-----:|:-----:|:-----:

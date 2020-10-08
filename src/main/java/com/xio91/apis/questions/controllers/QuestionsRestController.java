@@ -26,7 +26,7 @@ import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.services.QuestionsService;
 
 @RestController
-@RequestMapping("/xio91/v0/questions")
+@RequestMapping("/questions")
 public class QuestionsRestController {
 	
 	@Autowired
