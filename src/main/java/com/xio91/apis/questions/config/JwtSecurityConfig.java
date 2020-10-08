@@ -14,6 +14,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 	      .authorizeRequests(authz -> authz
 	        .antMatchers(HttpMethod.GET, "/xio91/v0/questions**").permitAll()
 	        .antMatchers(HttpMethod.POST, "/xio91/v0/questions").hasAuthority("SCOPE_write_questions")
+	        .antMatchers(HttpMethod.PUT, "/xio91/v0/questions").hasAuthority("SCOPE_write_questions")
 	        )
 	      .oauth2ResourceServer(oauth2 -> oauth2.jwt());
 	}
