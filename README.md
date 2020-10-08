@@ -36,17 +36,12 @@ The service has the following scopes defined:
 
 ## API Reference
 
-+--------+-----------------+----------------+-----------------+
-| Method | Endpoint        | Authentication | Scope           |
-+--------+-----------------+----------------+-----------------+
-| GET    | /questions      | None           | None            |
-+--------+-----------------+----------------+-----------------+
-| GET    | /questions/{id} | None           | None            |
-+--------+-----------------+----------------+-----------------+
-| POST   | /questions      | Yes            | write_questions |
-+--------+-----------------+----------------+-----------------+
-| PUT    | /questions/{id} | Yes            | write_questions |
-+--------+-----------------+----------------+-----------------+
+**Method**|**Endpoint**|**Authentication**|**Scope**
+:-----:|:-----:|:-----:|:-----:
+GET|/questions|None|None
+GET|/questions/{id}|None|None
+POST|/questions|Yes|write\_questions
+PUT|/questions/{id}|Yes|write\_questions
 
   
 
