@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.SortDefault;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
@@ -33,7 +34,7 @@ public class QuestionsRestController {
 	private QuestionsService questionsService;
     
 	@GetMapping
-	public ResponseEntity<PagedModel<Question>> listQuestions(@SortDefault(sort = "createdDate") 
+	public ResponseEntity<PagedModel<Question>> listQuestions(@SortDefault(sort = "createdDate", direction = Direction.DESC) 
 																Pageable pageable,
 																@RequestParam(required = false) String author) {
 		
