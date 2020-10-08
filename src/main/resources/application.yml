@@ -1,5 +1,14 @@
+server:
+  port: 8081
+    
 spring:
   data:
     mongodb:
       uri: YOUR_MONGO_URI
-      
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${oauth.issuer-uri}
+          
+# See: https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver
