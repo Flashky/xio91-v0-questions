@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
-@Document(collection = "questions")
 @Data
+@Document(collection = "questions", collation = "{ 'locale' :  'es' }")
 public class QuestionEntity {
 
 	@Id
