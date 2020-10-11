@@ -34,6 +34,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.xio91.apis.questions.controllers.exceptions.QuestionsExceptionHandler;
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.services.QuestionsService;
 
@@ -64,6 +65,7 @@ public class QuestionsRestControllerTest {
 		// MockMvc configuration
 		mockMvc = MockMvcBuilders.standaloneSetup(questionsController)
 	            .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+	            .setControllerAdvice(new QuestionsExceptionHandler())
 	            .build();
 		
 		// Podam (POJOs) configuration
