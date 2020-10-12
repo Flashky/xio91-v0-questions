@@ -15,10 +15,12 @@ public class AuthorProcessor implements RepresentationModelProcessor<Author> {
 
 	@Override
 	public Author process(Author model) {
-
-		Link authorQuestions = linkTo(methodOn(QuestionsRestController.class).listQuestions(null, model.getName())).withRel("questions");
-		model.add(authorQuestions);
-				
+		
+		if(model != null) {
+			Link authorQuestions = linkTo(methodOn(QuestionsRestController.class).listQuestions(null, model.getName())).withRel("questions");
+			model.add(authorQuestions);
+		}
+		
 		return model;
 	}
 
