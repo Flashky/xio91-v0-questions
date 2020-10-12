@@ -22,24 +22,41 @@ public abstract class QuestionModelAssembler extends RepresentationModelAssemble
 	    super(QuestionsRestController.class, Question.class);
 	  }
 	
+	/**
+	 * @param entity the question entity to convert.
+	 * @return the mapped <code>Question</code> or <code>null</code> if entity is also null.
+	 */
 	public Question toModel(QuestionEntity entity) {
-		
+
 		Question questionModel = map(entity);
 		
 		// Add links
 		
-		// Question self
-		Link self = linkTo(methodOn(QuestionsRestController.class).getQuestion(entity.getId())).withSelfRel();
-		questionModel.add(self);
-		
-		// Author's links
-		authorProcessor.process(questionModel.getAuthor());
+		if(questionModel != null) {
+			
+			// Question self
+			Link self = linkTo(methodOn(QuestionsRestController.class).getQuestion(entity.getId())).withSelfRel();
+			questionModel.add(self);
+			
+			// Author's links
+			authorProcessor.process(questionModel.getAuthor());	
+		}
 		
 		return questionModel;
 	}
 	
-	public abstract Question map(QuestionEntity entity);
+	/**
+	 * Converts the given question entity into a question model.
+	 * @param entity the question entity to convert.
+	 * @return the mapped <code>Question</code> or <code>null</code> if entity is also null.
+	 */
+	protected abstract Question map(QuestionEntity entity);
 	
+	/**
+	 * Converts the given question model into a question entity.
+	 * @param model the question model to convert.
+	 * @return the mapped <code>QuestionEntity</code> or <code>null</code> if model is also null.
+	 */
 	public abstract QuestionEntity toEntity(Question model);
  
 }
