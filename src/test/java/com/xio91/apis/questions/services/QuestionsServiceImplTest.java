@@ -32,12 +32,8 @@ import org.springframework.hateoas.PagedModel.PageMetadata;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.xio91.apis.questions.controllers.model.Answer;
-import com.xio91.apis.questions.controllers.model.Author;
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.repositories.QuestionsMongoRepository;
-import com.xio91.apis.questions.repositories.entities.AnswerEntity;
-import com.xio91.apis.questions.repositories.entities.AuthorEntity;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
 import com.xio91.apis.questions.services.mappers.QuestionModelAssemblerImpl;
 
@@ -91,6 +87,8 @@ public class QuestionsServiceImplTest {
 		PagedModel<Question> result = questionsService.listQuestions(pageable, null);
 		
 		// Assertions
+		Mockito.verify(questionsRepository).findAll(any(), (Pageable) any());
+		
 		assertNotNull(result);
 		
 		// Assertions - Content
@@ -129,45 +127,33 @@ public class QuestionsServiceImplTest {
 		Optional<Question> result = questionsService.getQuestion("question-id");
 		
 		// ASsertions
+		Mockito.verify(questionsRepository).findById(any());
+		
 		assertNotNull(result);
 		assertTrue(result.isPresent());
-		
-		test(expected, result.get());
-		
-	}
-
-	private void test(QuestionEntity expected, Question result) {
-
-		assertNotNull(result);
-		
-		assertEquals(expected.getId(), result.getId());
-		assertEquals(expected.getText(), result.getText());
-		assertEquals(expected.getCreatedDate(), result.getCreatedDate());
-		
-		test(expected.getAuthor(), result.getAuthor());
-		test(expected.getAnswer(), result.getAnswer());
-	}
-
-	private void test(AnswerEntity expected, Answer result) {
-
-		assertNotNull(result);
-		
-		assertEquals(expected.getNo(), result.getNo());
-		assertEquals(expected.getYes(), result.getYes());
-		
-	}
-
-	private void test(AuthorEntity expected, Author result) {
-
-		assertNotNull(result);
-		
-		assertEquals(expected.getName(), result.getName());
 		
 	}
 
 	@Test
 	public void testCreateQuestion() {
-		fail("Not yet implemented");
+		
+		// Prepare POJOs
+		Question question = podamFactory.manufacturePojo(Question.class);
+		QuestionEntity expected = podamFactory.manufacturePojo(QuestionEntity.class);
+		
+		// Mock
+		Mockito.doReturn(expected).when(questionsRepository).save(any());
+		
+		// Execute method
+		Question result = questionsService.createQuestion(question);
+		
+		// Assertions
+		Mockito.verify(questionsRepository).save(any());
+		
+		assertNotNull(result);
+		assertEquals(expected.getId(), result.getId()); // Result must have at least the id
+		
+		
 	}
 
 	@Test
