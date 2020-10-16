@@ -3,7 +3,6 @@ package com.xio91.apis.questions.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.repositories.QuestionsMongoRepository;
 import com.xio91.apis.questions.repositories.entities.QuestionEntity;
+import com.xio91.apis.questions.services.exceptions.QuestionNotFoundException;
 import com.xio91.apis.questions.services.mappers.QuestionModelAssemblerImpl;
 
 import uk.co.jemos.podam.api.PodamFactory;
@@ -158,7 +158,30 @@ public class QuestionsServiceImplTest {
 
 	@Test
 	public void testUpdateQuestion() {
-		fail("Not yet implemented");
+		
+		// Prepare POJOs
+		Question question = podamFactory.manufacturePojo(Question.class);
+		QuestionEntity savedQuestion = podamFactory.manufacturePojo(QuestionEntity.class);
+		
+		// Mock
+		Mockito.doReturn(Optional.of(savedQuestion)).when(questionsRepository).findById(any());
+		
+		// Execute method
+		questionsService.updateQuestion(question);
+		
+		// Assertions
+		Mockito.verify(questionsRepository).save(any());
+		
+	}
+	
+	@Test(expected = QuestionNotFoundException.class)
+	public void testUpdateQuestionNotFound() {
+
+		// Mock
+		Mockito.doReturn(Optional.empty()).when(questionsRepository).findById(any());
+		
+		// Execute method
+		questionsService.updateQuestion(new Question());
 	}
 
 	private Pageable getDefaultPageable() {
