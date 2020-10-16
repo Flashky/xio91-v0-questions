@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.SortDefault;
-import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
-import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.services.QuestionsService;
@@ -82,21 +80,18 @@ public class QuestionsRestController {
 	}
 	
 	/**
-	 * Generates a location URI from a representation model link with "self" rel, if present.
-	 * @param representationModel the model to obtain the location URI from.
-	 * @return The model location URI. May be <code>null</null> if no self attribute is defined.
+	 * Generates a location URI from the current request path + /{id}
+	 * @param question the question to obtain the location URI from.
+	 * @return The question location URI.
 	 */
-	private URI getLocationUri(RepresentationModel<?> representationModel) {
+	private URI getLocationUri(Question question) {
 		
-		URI location = null;
-		
-		Optional<Link> selfLink = representationModel.getLink(IanaLinkRelations.SELF);
-		
-		if(selfLink.isPresent()) {
-			location = selfLink.get().toUri();
-		}
-		
-		return location;
+		return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(question.getId())
+                .toUri();
+
 	}
 }
  
