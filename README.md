@@ -1,6 +1,7 @@
 # xio91-v0-questions
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f22d4845df7540109bbb24d3c3f131dc)](https://www.codacy.com/gh/Flashky/xio91-v0-questions/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Flashky/xio91-v0-questions&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/f22d4845df7540109bbb24d3c3f131dc)](https://www.codacy.com/gh/Flashky/xio91-v0-questions/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Flashky/xio91-v0-questions&utm_campaign=Badge_Coverage)
 
 ## External dependencies
 
