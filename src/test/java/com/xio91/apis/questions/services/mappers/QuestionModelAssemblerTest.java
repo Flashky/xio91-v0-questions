@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -12,7 +13,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
@@ -29,13 +29,12 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class QuestionModelAssemblerTest {
 
+	private static final String REL_QUESTIONS = "questions";
+	
 	private static PodamFactoryImpl podamFactory;
 	
 	@InjectMocks
 	private QuestionModelAssembler questionModelAssembler = new QuestionModelAssemblerImpl();
-	
-	@Spy
-	private AuthorProcessor authorProcessor;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -136,6 +135,10 @@ public class QuestionModelAssemblerTest {
 		assertEquals(expected.getName(), result.getName());
 		assertFalse(result.getLinks().isEmpty());
 		
+		// Assertions - Author links
+		assertTrue(result.getLink(REL_QUESTIONS).isPresent());
+		assertEquals("/questions?author="+expected.getName(), result.getLink(REL_QUESTIONS).get().getHref());
+		
 		
 	}
 
@@ -156,6 +159,7 @@ public class QuestionModelAssemblerTest {
 
 		assertNotNull(result);
 		assertEquals(expected.getName(), result.getName());
+		
 		
 	}
 

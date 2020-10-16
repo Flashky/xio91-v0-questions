@@ -59,7 +59,7 @@ public class QuestionsServiceImplTest {
 	@Spy
     private PagedResourcesAssembler<QuestionEntity> pagedResourcesAssembler = new PagedResourcesAssembler<>(null, uriComponents);
     
-	@Mock
+	@Spy
     private QuestionModelAssemblerImpl questionModelAssembler;
     
 	@BeforeClass
