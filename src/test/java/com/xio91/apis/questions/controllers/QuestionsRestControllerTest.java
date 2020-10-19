@@ -126,7 +126,7 @@ public class QuestionsRestControllerTest {
 	public void testGetQuestion200() throws Exception {
 		
 		// Prepare POJOs
-			Question question = podamFactory.manufacturePojo(Question.class);
+		Question question = podamFactory.manufacturePojo(Question.class);
 		Optional<Question> expectedResult = Optional.of(question);
 		
 		// Mock
