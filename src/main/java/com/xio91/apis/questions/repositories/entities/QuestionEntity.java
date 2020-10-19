@@ -23,6 +23,8 @@ public class QuestionEntity {
 	private AuthorEntity author;
 	private AnswerEntity answer;
 	
+	private String status;
+	
 	@CreatedDate
 	@JsonFormat(timezone = "GMT+02:00")
 	private Date createdDate;

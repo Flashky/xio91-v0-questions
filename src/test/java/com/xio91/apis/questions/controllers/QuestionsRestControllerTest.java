@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.xio91.apis.questions.controllers.exceptions.QuestionsExceptionHandler;
 import com.xio91.apis.questions.controllers.model.Question;
 import com.xio91.apis.questions.services.QuestionsService;
+import com.xio91.apis.questions.services.exceptions.QuestionNotFoundException;
 
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -126,7 +127,7 @@ public class QuestionsRestControllerTest {
 	public void testGetQuestion200() throws Exception {
 		
 		// Prepare POJOs
-			Question question = podamFactory.manufacturePojo(Question.class);
+		Question question = podamFactory.manufacturePojo(Question.class);
 		Optional<Question> expectedResult = Optional.of(question);
 		
 		// Mock
@@ -171,6 +172,13 @@ public class QuestionsRestControllerTest {
 								.andExpect(header().exists(HttpHeaders.LOCATION));
 	}
 
+	@Test
+	public void testCreateQuestion400JsonNotReadable() throws Exception {
+		
+		// Perform request
+		executePostJsonNotReadable().andExpect(status().isBadRequest());
+	}
+	
 	@Test
 	public void testCreateQuestion400NullText() throws Exception {
 		
@@ -226,6 +234,17 @@ public class QuestionsRestControllerTest {
 		executePost(question).andExpect(status().isBadRequest());
 	}
 	
+	@Test
+	public void testCreateQuestion400InvalidStatus() throws Exception {
+		
+		// Prepare POJOs
+		Question question = podamFactory.manufacturePojo(Question.class);
+		question.setStatus("invalid-status");
+
+		// Perform request
+		executePost(question).andExpect(status().isBadRequest());
+	}
+	
 	/**
 	 * Auxiliar method to perform a post to the questions endpoint with an input body.
 	 * <p>
@@ -244,6 +263,22 @@ public class QuestionsRestControllerTest {
 				.content(questionBody));
 	}
 	
+	private ResultActions executePostJsonNotReadable() throws Exception {
+		
+		return mockMvc.perform(post("/questions")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{"));
+	}
+	
+	private ResultActions executePut(Question question) throws Exception {
+		
+		String questionBody = objectWriter.writeValueAsString(question);
+		
+		return mockMvc.perform(put("/questions/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(questionBody));
+	}
+
 	@Test
 	public void testUpdateQuestion200() throws Exception {
 		// Prepare POJOs
@@ -256,15 +291,19 @@ public class QuestionsRestControllerTest {
 		executePut(question).andExpect(status().isOk());
 	}
 
-	private ResultActions executePut(Question question) throws Exception {
-		
-		String questionBody = objectWriter.writeValueAsString(question);
-		
-		return mockMvc.perform(put("/questions/1")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(questionBody));
+	@Test
+	public void testUpdateQuestion400NotFound() throws Exception {
+		// Prepare POJOs
+		Question question = podamFactory.manufacturePojo(Question.class);
+				 
+		// Mock
+		Mockito.doThrow(new QuestionNotFoundException("question not found")).when(questionsService).updateQuestion(any());
+				
+		// Perform request
+		executePut(question).andExpect(status().isConflict());
 	}
-
+	
+	
 	@Test
 	public void testUpdateQuestion400NullText() throws Exception {
 		
