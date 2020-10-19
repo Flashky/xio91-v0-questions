@@ -114,6 +114,7 @@ public class QuestionModelAssemblerTest {
 		assertEquals(expected.getId(), result.getId());
 		assertEquals(expected.getText(), result.getText());
 		assertEquals(expected.getCreatedDate(), result.getCreatedDate());
+		assertEquals(expected.getStatus(), result.getStatus());
 		
 		test(expected.getAuthor(), result.getAuthor());
 		test(expected.getAnswer(), result.getAnswer());
@@ -149,6 +150,7 @@ public class QuestionModelAssemblerTest {
 		assertEquals(expected.getId(), result.getId());
 		assertEquals(expected.getText(), result.getText());
 		assertEquals(expected.getCreatedDate(), result.getCreatedDate());
+		assertEquals(expected.getStatus(), result.getStatus());
 		
 		test(expected.getAuthor(), result.getAuthor());
 		test(expected.getAnswer(), result.getAnswer());
