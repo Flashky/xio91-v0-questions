@@ -10,6 +10,7 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xio91.apis.questions.controllers.validation.ValueOfEnum;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,6 +31,9 @@ public class Question extends RepresentationModel<Question> {
 	
 	@Valid
 	private Answer answer;
+
+	@ValueOfEnum(QuestionStatus.class)
+	private String status;
 	
 	@JsonFormat(timezone = "GMT+02:00")
 	private Date createdDate;
