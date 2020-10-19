@@ -226,6 +226,17 @@ public class QuestionsRestControllerTest {
 		executePost(question).andExpect(status().isBadRequest());
 	}
 	
+	@Test
+	public void testCreateQuestion400InvalidStatus() throws Exception {
+		
+		// Prepare POJOs
+		Question question = podamFactory.manufacturePojo(Question.class);
+		question.setStatus("invalid-status");
+
+		// Perform request
+		executePost(question).andExpect(status().isBadRequest());
+	}
+	
 	/**
 	 * Auxiliar method to perform a post to the questions endpoint with an input body.
 	 * <p>
