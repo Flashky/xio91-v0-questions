@@ -10,6 +10,8 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.xio91.apis.questions.controllers.validation.ValueOfEnum;
 
 import lombok.Data;
@@ -18,6 +20,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Relation(collectionRelation = "questions")
+@JsonInclude(Include.NON_NULL)
 public class Question extends RepresentationModel<Question> {
 
 	private String id;
