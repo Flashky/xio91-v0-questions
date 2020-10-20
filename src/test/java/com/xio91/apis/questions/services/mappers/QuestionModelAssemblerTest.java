@@ -138,7 +138,7 @@ public class QuestionModelAssemblerTest {
 		
 		// Assertions - Author links
 		assertTrue(result.getLink(REL_QUESTIONS).isPresent());
-		assertEquals("/questions?author="+expected.getName(), result.getLink(REL_QUESTIONS).get().getHref());
+		assertEquals("/questions?author.name="+expected.getName(), result.getLink(REL_QUESTIONS).get().getHref());
 		
 		
 	}

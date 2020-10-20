@@ -34,9 +34,9 @@ public class QuestionsRestController {
 	@GetMapping
 	public ResponseEntity<PagedModel<Question>> listQuestions(@SortDefault(sort = "createdDate", direction = Direction.DESC) 
 																Pageable pageable,
-																@RequestParam(required = false) String author) {
+																@RequestParam(required = false, value = "author.name") String authorName) {
 		
-		PagedModel<Question> questions = questionsService.listQuestions(pageable, author);
+		PagedModel<Question> questions = questionsService.listQuestions(pageable, authorName);
 
 		if(!questions.getContent().isEmpty()) {
 			return ResponseEntity.ok().body(questions); 
