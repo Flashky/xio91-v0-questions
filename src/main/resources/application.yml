@@ -7,7 +7,12 @@ spring:
     name: api-v0-questions
   data:
     mongodb:
-      uri: YOUR_MONGO_URI
+      authentication-database: admin
+      host: ${mongodb.host}
+      port: ${mongodb.port:27017}
+      database: ${mongodb.database}
+      username: ${mongodb.username}
+      password: ${mongodb.password}
   security:
     oauth2:
       resourceserver:

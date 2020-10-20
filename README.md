@@ -5,25 +5,42 @@
 
 ## External dependencies
 
-### Databases
+### Database
 
-A MongoDB is needed as it is used by the service to persist the data.
+The service uses a MongoDB database for persistence.
+
+For testing purposes, create a default user with "readWrite" role:
+
+```mongodb
+db.createUser(
+  {
+    user: "myDbUser",
+    pwd:  "myPassword",   
+    roles: [ { role: "readWrite", db: "myServiceDatabase" }]
+  }
+)
+```
+
 
 
 ## Configuration properties
 
 You must set these configuration properties by overriding either ``application.yml`` or as environment variables before running the service.
 
+Database configuration required properties:
 
-Database configuration:
+- ``mongodb.host``: Database hostname. Sample: "localhost"
+- ``mongodb.username``: Database username.
+- ``mongodb.password``: Database password.
 
-- ``spring.data.mongodb.uri``: The MongoDB uri.
+Optional properties:
 
-Authorization server configuration:
+- ``mongodb.port``: The MongoDB port. Defaults to "27017".
 
-- ``oauth.issuer-uri``: The Authorization Server issuer uri.
+Authorization server configuration required properties:
 
-Sample for Okta: https://dev-1234.okta.com/oauth2/default
+- ``oauth.issuer-uri``: The Authorization Server issuer uri. Sample Okta: https://dev-1234.okta.com/oauth2/default 
+
 
 ## Authentication
 
